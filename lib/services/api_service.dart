@@ -12,9 +12,16 @@ String _moduleLabel(Module module) =>
     module == Module.gym ? 'Gym Management' : 'Physio Clinic';
 
 enum Plan {
-  monthly('1 Month', 150, 'monthly'),
-  quarterly('Quarter (3 Months)', 300, 'quarterly'),
-  annual('Annual', 1000, 'yearly');
+  monthlyLegacy('Monthly (Legacy)', 150, 'monthly'),
+  quarterly('Quarterly (3 Months)', 500, 'quarterly'),
+  halfYearly('Half Yearly (6 Months)', 900, 'half_yearly'),
+  annual('Annual (12 Months)', 1600, 'yearly');
+
+  static const purchaseOptions = [
+    quarterly,
+    halfYearly,
+    annual,
+  ];
 
   final String label;
   final int price;
@@ -181,7 +188,7 @@ class Membership {
     final raw = (j['plan_type'] ?? '').toString().toLowerCase();
     final plan = Plan.values.firstWhere(
       (p) => p.apiValue == raw,
-      orElse: () => Plan.monthly,
+      orElse: () => Plan.monthlyLegacy,
     );
     return Membership(
       '${j['id']}',

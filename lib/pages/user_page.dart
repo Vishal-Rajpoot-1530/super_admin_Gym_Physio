@@ -10,7 +10,7 @@ import '../utils/helpers.dart';
 import '../widgets/app_shell.dart';
 import '../widgets/common.dart';
 
-enum _UserTab { all, quarterly, monthly, annual, inactive }
+enum _UserTab { all, quarterly, halfYearly, monthly, annual, inactive }
 
 class UsersPage extends StatefulWidget {
   final Module module;
@@ -120,7 +120,7 @@ class _UsersPageState extends State<UsersPage> {
             ),
           ],
           child: Column(
-            children: Plan.values.map((plan) {
+            children: Plan.purchaseOptions.map((plan) {
               return PlanOption(
                 plan: plan,
                 selected: false,
@@ -373,8 +373,11 @@ class _UsersPageState extends State<UsersPage> {
         case _UserTab.quarterly:
           if (u.membership?.plan != Plan.quarterly) return false;
           break;
+        case _UserTab.halfYearly:
+          if (u.membership?.plan != Plan.halfYearly) return false;
+          break;
         case _UserTab.monthly:
-          if (u.membership?.plan != Plan.monthly) return false;
+          if (u.membership?.plan != Plan.monthlyLegacy) return false;
           break;
         case _UserTab.annual:
           if (u.membership?.plan != Plan.annual) return false;
@@ -584,6 +587,8 @@ class _UsersPageState extends State<UsersPage> {
         return 'All Members';
       case _UserTab.quarterly:
         return 'Quarterly (3 Mo)';
+      case _UserTab.halfYearly:
+        return 'Half Yearly (6 Mo)';
       case _UserTab.monthly:
         return 'Monthly';
       case _UserTab.annual:

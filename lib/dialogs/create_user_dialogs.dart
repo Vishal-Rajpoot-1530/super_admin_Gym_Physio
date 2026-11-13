@@ -25,7 +25,7 @@ class _CreateUserDialogState extends State<CreateUserDialog> {
 
   String _type = 'offline';
 
-  Plan _selectedPlan = Plan.monthly;
+  Plan _selectedPlan = Plan.quarterly;
 
   bool _saving = false;
   AppUser? _createdClinicUser;
@@ -302,7 +302,7 @@ class _CreateUserDialogState extends State<CreateUserDialog> {
               if (_type == 'online') ...[
                 const SizedBox(height: 22),
                 const FieldLabel('Select Subscription Plan', required: false),
-                ...Plan.values.map((plan) {
+                ...Plan.purchaseOptions.map((plan) {
                   return PlanOption(
                     plan: plan,
                     selected: _selectedPlan == plan,
